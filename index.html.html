@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<title>nazmulsblog — AI এসিস্ট্যান্ট</title>
+<meta name="description" content="যে সব প্রিমিয়াম টুল এক্সেস করে — একটাই চ্যাটে Gemini, Groq, NVIDIA NIM, OpenRouter সুইচ করুন, কথোপকথন হারাবে না।" />
+<meta name="theme-color" content="#12181C" />
+<link rel="manifest" href="./manifest.json" />
+<link rel="icon" href="./icons/icon-192.png" />
+<link rel="apple-touch-icon" href="./icons/icon-192.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div id="app">
+
+  <header class="header">
+    <div class="brand">
+      <div class="brand-name">nazmuls<span>blog</span></div>
+      <div class="brand-tagline">AI এসিস্ট্যান্ট যে সব প্রিমিয়াম টুল এক্সেস করে</div>
+    </div>
+    <button id="settingsBtn" class="icon-btn" aria-label="সেটিংস" title="সেটিংস">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+    </button>
+  </header>
+
+  <!-- ইঞ্জিন ডায়াল: টিউনিং ডায়ালের মতো — একটা থেকে আরেকটায় সুইচ করুন -->
+  <nav class="dial" id="dial" aria-label="ইঞ্জিন নির্বাচন"></nav>
+
+  <main class="thread" id="thread"></main>
+
+  <div class="composer">
+    <div class="composer-row">
+      <textarea id="input" rows="1" placeholder="মেসেজ লিখুন… একটা লিঙ্কও পেস্ট করতে পারেন"></textarea>
+      <button id="sendBtn" class="send-btn" aria-label="পাঠান">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7z"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="composer-hint">Enter = পাঠান · Shift+Enter = নতুন লাইন</div>
+  </div>
+
+</div>
+
+<!-- সেটিংস শিট -->
+<div class="sheet-backdrop" id="sheetBackdrop">
+  <div class="sheet">
+    <div class="sheet-grabber"></div>
+    <h3 style="margin-top:4px;">API কী</h3>
+    <p class="sheet-lead">প্রতিটা কী শুধু এই ফোনের ব্রাউজারে (localStorage) থাকে — কোনো সার্ভারে পাঠানো হয় না।</p>
+    <div id="keysList"></div>
+
+    <h3>চ্যাট</h3>
+    <div class="sheet-actions">
+      <button class="btn danger" id="clearChat">সব মুছে ফেলুন</button>
+      <button class="btn primary" id="closeSheet">বন্ধ করুন</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="url-chip" style="position:fixed; left:50%; bottom:90px; transform:translateX(-50%); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:60; max-width:86%; text-align:center;"></div>
+
+<script src="./app.js"></script>
+<style>
+  #toast.show{ opacity:1 !important; }
+</style>
+</body>
+</html>
