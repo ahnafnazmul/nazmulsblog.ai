@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<title>nazmulsblog — AI Assistant</title>
+<meta name="description" content="One AI assistant that plugs into every premium tool — switch engines mid-chat without losing context." />
+<meta name="theme-color" content="#F6F4FE" />
+<link rel="manifest" href="./manifest.json" />
+<link rel="icon" href="./icons/icon-192.png" />
+<link rel="apple-touch-icon" href="./icons/icon-192.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <div class="topbar-left" id="topbarLeft">
+      <div class="orb sm"></div>
+      <div class="brand-name">nazmuls<span>blog</span></div>
+    </div>
+    <div class="topbar-right" id="topbarRight"></div>
+  </header>
+
+  <main>
+
+    <!-- ================= HOME ================= -->
+    <section id="view-home" class="view active">
+      <div class="view-scroll">
+        <div class="greeting-eyebrow"><span class="dot"></span> Online</div>
+        <h1 class="greeting-title" id="greetingTitle">Hi! How may I help you today?</h1>
+
+        <div class="feature-grid">
+          <button class="feature-card" id="tileChat">
+            <div class="feature-icon" style="background:linear-gradient(135deg,var(--primary-a),var(--primary-b));">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            </div>
+            <div class="feature-badge">FREE</div>
+            <div class="feature-title">Chat with AI</div>
+            <div class="feature-sub">Talk to any engine, switch mid-chat</div>
+          </button>
+          <button class="feature-card" id="tileSearch">
+            <div class="feature-icon" style="background:linear-gradient(135deg,var(--eng-gemini),#3F6FE0);">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </div>
+            <div class="feature-badge">FREE</div>
+            <div class="feature-title">Web Search</div>
+            <div class="feature-sub">Find things happening right now</div>
+          </button>
+          <button class="feature-card" id="tileLink">
+            <div class="feature-icon" style="background:linear-gradient(135deg,var(--eng-nim),#2E9D66);">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            </div>
+            <div class="feature-badge">FREE</div>
+            <div class="feature-title">Ask via Link</div>
+            <div class="feature-sub">Paste a link, get it summarized</div>
+          </button>
+          <button class="feature-card" id="tileHistory">
+            <div class="feature-icon" style="background:linear-gradient(135deg,var(--pink-a),var(--pink-b));">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+            </div>
+            <div class="feature-title">Chat History</div>
+            <div class="feature-sub">Jump back into any past chat</div>
+          </button>
+        </div>
+
+        <div class="section-head">
+          <h3>Recent Chats</h3>
+          <a id="seeAllLink">See all</a>
+        </div>
+        <div id="recentList"></div>
+      </div>
+    </section>
+
+    <!-- ================= CHAT ================= -->
+    <section id="view-chat" class="view">
+      <div class="thread" id="thread"></div>
+      <div class="composer">
+        <div class="composer-row">
+          <button id="searchToggle" class="icon-btn" style="width:38px;height:38px;" aria-label="Toggle live web search" title="Live web search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          </button>
+          <textarea id="input" rows="1" placeholder="Message nazmulsblog… or paste a link"></textarea>
+          <button id="sendBtn" class="send-btn" aria-label="Send">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7z"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="composer-hint" id="composerHint">Enter to send · Shift+Enter for new line</div>
+      </div>
+    </section>
+
+    <!-- ================= HISTORY ================= -->
+    <section id="view-history" class="view">
+      <div class="view-scroll">
+        <div class="section-head"><h3>All Chats</h3></div>
+        <div id="historyList"></div>
+      </div>
+    </section>
+
+    <!-- ================= SETTINGS ================= -->
+    <section id="view-settings" class="view">
+      <div class="view-scroll">
+        <div class="section-head"><h3>Cloud Sync</h3></div>
+        <p class="settings-lead">Sync your chats between your phone and PC using your own free <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> project. Nothing is sent anywhere until you fill this in — see the README for the 2-minute setup.</p>
+        <div class="key-row" style="flex-direction:column; align-items:stretch; gap:8px;">
+          <input type="text" id="syncUrl" placeholder="Supabase Project URL" style="width:100%;" />
+          <input type="password" id="syncAnonKey" placeholder="Supabase anon public key" style="width:100%;" />
+          <input type="text" id="syncCode" placeholder="Your private sync code (e.g. a made-up password)" style="width:100%;" />
+        </div>
+        <button class="btn" id="syncSaveBtn" style="margin-top:10px;">Save & Sync Now</button>
+        <div class="settings-lead" id="syncStatus" style="margin-top:8px;">Not connected yet.</div>
+
+        <div class="section-head" style="margin-top:22px;"><h3>API Keys</h3></div>
+        <p class="settings-lead">Each key stays only in this browser's local storage — API keys are never synced to the cloud.</p>
+        <div id="keysList"></div>
+        <div class="section-head" style="margin-top:22px;"><h3>Data</h3></div>
+        <button class="btn danger" id="clearAllBtn">Delete all chats</button>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="bottomnav">
+    <button class="navbtn" data-view="home">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"></path></svg>
+      Home
+    </button>
+    <button class="navbtn" data-view="chat">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      Chat
+    </button>
+    <button class="navbtn" data-view="history">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+      History
+    </button>
+    <button class="navbtn" data-view="settings">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg>
+      Settings
+    </button>
+  </nav>
+
+</div>
+
+<div id="toast"></div>
+
+<div class="sheet-backdrop" id="settingsSheetBackdrop">
+  <div class="sheet">
+    <div class="sheet-grabber"></div>
+    <div class="sheet-head">
+      <h3>Chat Settings</h3>
+      <button class="icon-btn" id="settingsCloseBtn" style="width:32px;height:32px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18"></path><path d="M6 6l12 12"></path></svg>
+      </button>
+    </div>
+
+    <h4>Model selection</h4>
+    <div class="model-grid" id="modelGrid"></div>
+
+    <h4>Response length</h4>
+    <div class="pill-row" id="lengthRow">
+      <button class="pill-btn" data-length="auto">Auto</button>
+      <button class="pill-btn" data-length="brief">Brief</button>
+      <button class="pill-btn" data-length="detailed">Detailed</button>
+    </div>
+
+    <h4>Response tone</h4>
+    <div class="pill-row" id="toneRow">
+      <button class="pill-btn" data-tone="auto">Auto</button>
+      <button class="pill-btn" data-tone="professional">Professional</button>
+      <button class="pill-btn" data-tone="creative">Creative</button>
+      <button class="pill-btn" data-tone="casual">Casual</button>
+      <button class="pill-btn" data-tone="humorous">Humorous</button>
+      <button class="pill-btn" data-tone="academic">Academic</button>
+    </div>
+
+    <button class="btn primary" id="settingsSaveBtn" style="margin-top:22px; background:linear-gradient(135deg,var(--primary-a),var(--primary-b)); color:#fff; border:none; font-weight:600;">Save</button>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>
